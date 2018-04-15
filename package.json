@@ -10,6 +10,12 @@
     "preprocessor",
     "include"
   ],
+  "bin": {
+    "jspreprocess": "./index.js"
+  },
   "author": "Ramon Brand",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "chalk": "^2.3.2"
+  }
 }

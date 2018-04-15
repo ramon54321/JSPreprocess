@@ -5,6 +5,11 @@ if(true != false) {
 }
 
 //:include "./other.js" 
+//:include "./other.js" 
+//:include "./other.js" 
+//:include "./other.js" 
+//:include "./other.js" 
+//:include "./other.js" 
 
 
 console.log(data)

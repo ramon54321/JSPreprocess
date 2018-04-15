@@ -1,6 +1,21 @@
+#!/usr/bin/env node
+/*
+
+    Examples
+
+    //:include "./other.js" 
+
+*/
+
+// -- Chalk
+const chalk = require("chalk")
 
 // -- Declare Node FileSystem
 const fs = require("fs")
+
+// -- Opening debug
+console.log()
+console.log(chalk.green("[PREPROCESSING]"))
 
 // -- Options object (Modified by arguments)
 const options = {
@@ -16,7 +31,7 @@ while (procArgs.length > argIndex) {
     const arg = procArgs[argIndex]
     // -- Set arg state
     if(arg.startsWith("-")) {
-        const state = arg.slice(1)
+        argState = arg.slice(1)
     } 
     // -- Apply to state
     else {
@@ -33,6 +48,9 @@ while (procArgs.length > argIndex) {
     argIndex++
 }
 
+// -- Debug options
+console.log(chalk.green("\t" + options.inputFile + " -> " + options.outputFile))
+
 // -- Load mutable source
 let contents = fs.readFileSync(options.inputFile, {encoding: "utf8"}).trim()
 
@@ -40,7 +58,7 @@ let contents = fs.readFileSync(options.inputFile, {encoding: "utf8"}).trim()
 const directives = []
 
 // -- Regex for matching directives
-const regex = /\/\/:.*(\n|\r)/g;
+const regex = /\/\/\:.*(\n|\r)/g;
 do {
     // -- Match directives
     match = regex.exec(contents);
@@ -63,7 +81,7 @@ do {
             text: match[0],
             index: match.index,
             length: match[0].length,
-            command: match[0].slice(1).split(/\s/)[0],
+            command: match[0].slice(3).split(/\s/)[0],
             args: args
         }
         // -- Add directive to list
@@ -79,8 +97,13 @@ directives.forEach((directive) => {
         const replacement = fs.readFileSync(directive.args[0], {encoding: "utf8"}).trim()
         // -- Replace contents
         contents = contents.replace(directive.text, replacement)
+        // -- Debug
+        console.log(chalk.cyan("\t\t" + "[INCLUDE] " + directive.args[0]))
     }
 })
 
 // -- Write output
 fs.writeFileSync(options.outputFile, contents, {encoding: "utf8"})
+
+// -- Closing debug
+console.log()

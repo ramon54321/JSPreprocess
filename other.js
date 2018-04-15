@@ -1,0 +1,1 @@
+const data = "some important data"

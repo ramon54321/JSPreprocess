@@ -1,0 +1,15 @@
+{
+  "name": "jsdirector",
+  "version": "1.0.0",
+  "description": "JS preprocessor.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node ."
+  },
+  "keywords": [
+    "preprocessor",
+    "include"
+  ],
+  "author": "Ramon Brand",
+  "license": "ISC"
+}
